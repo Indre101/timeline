@@ -48,35 +48,35 @@ function test() {
   appendSVG();
 }
 
+let moviePart = [];
+
 function showModal(datasetValue) {
 
   document.querySelectorAll(".infoBox").forEach(box => {
     box.setAttribute("viewBox", "0 0 2500 1000");
     box.style.visibility = "visible";
-
-    // showCorrectModalInfo(box);
-    getFilmInformation(datasetValue);
+    getFilmInformation(datasetValue, box)
   });
 }
 
 
-function showCorrectModalInfo() {
-
-
+function showCorrectModalInfo(box, movie) {
+  box.querySelector(".movieName").textContent = movie.title.original;
 }
 
-async function getFilmInformation(datasetValue) {
+async function getFilmInformation(datasetValue, box) {
   const data = await fetch("./potterfilms.json");
   const response = await data.json();
-  prepareData(response, datasetValue);
+  prepareData(response, datasetValue, box);
 }
 
 
-function prepareData(response, datasetValue) {
+function prepareData(response, datasetValue, box) {
   // const filmInformation = getFilmInformation();
   const rightMoviePart = response.filter(movie => movie.part === datasetValue);
-  console.log(rightMoviePart);
-  return rightMoviePart[0];
+  console.log(rightMoviePart[0]);
+  showCorrectModalInfo(box, rightMoviePart[0]);
+
   // title: {original: "Harry Potter and the Sorcerer's Stone", danish: "Harry Potter og de vises sten"}
   // year: 2001
   // length: "2h 32min"
