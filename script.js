@@ -37,19 +37,50 @@ function appendSVG() {
 }
 
 function test() {
-  document.querySelectorAll("circle").forEach(element => {
-    element.onclick = function() {
-      showModal();
+  document.querySelectorAll(".bullet").forEach(element => {
+    element.onclick = function () {
+      console.log(this.dataset.part);
+
+      showModal(this.dataset.part);
     };
   });
 
   appendSVG();
 }
 
-function showModal() {
-  console.log("object");
+function showModal(datasetValue) {
+
   document.querySelectorAll(".infoBox").forEach(box => {
     box.setAttribute("viewBox", "0 0 2500 1000");
     box.style.visibility = "visible";
+
+    // showCorrectModalInfo(box);
+    getFilmInformation(datasetValue);
   });
+}
+
+
+function showCorrectModalInfo() {
+
+
+}
+
+async function getFilmInformation(datasetValue) {
+  const data = await fetch("./potterfilms.json");
+  const response = await data.json();
+  prepareData(response, datasetValue);
+}
+
+
+function prepareData(response, datasetValue) {
+  // const filmInformation = getFilmInformation();
+  const rightMoviePart = response.filter(movie => movie.part === datasetValue);
+  console.log(rightMoviePart);
+  return rightMoviePart[0];
+  // title: {original: "Harry Potter and the Sorcerer's Stone", danish: "Harry Potter og de vises sten"}
+  // year: 2001
+  // length: "2h 32min"
+  // director: "Chris Columbus"
+  // writers: {novel: "J.K. Rowling", screenplay: "Steve Kloves"}
+  // poster: "sorcerer.jpg"
 }
