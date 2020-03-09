@@ -4,11 +4,11 @@ const svgContainer = document.querySelector("#svgContainer");
 
 
 async function getTheSVG() {
-  const responseInfobox = await fetch("./final_infobox.svg");
+  const responseInfobox = await fetch("./infobox.svg");
   const svgInfobox = await responseInfobox.text();
   svgInfoBoxContainer.innerHTML = svgInfobox;
 
-  const responseTimeline = await fetch("./final_timeline.svg");
+  const responseTimeline = await fetch("./timeline.svg");
   const svgTimeline = await responseTimeline.text();
   svgTimelineContainer.innerHTML = svgTimeline;
   appendSVG()
