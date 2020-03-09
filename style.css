@@ -13,5 +13,13 @@
 }
 
 #infoBox {
-  display: none;
+  visibility: hidden;
+}
+
+circle.timelinecircle {
+  transition: fill 0.3s ease-in-out;
+}
+
+circle.timelinecircle:hover {
+  fill: darkgray;
 }
