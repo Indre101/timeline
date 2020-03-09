@@ -18,9 +18,12 @@ getTheSVG()
 
 
 function appendSVG() {
-  const newUseElement = document.createElementNS("http://www.w3.org/2000/svg", "use")
-  newUseElement.href.baseVal = "ijkæl"
-  console.log(newUseElement.href.baseVal);
+  const timeleline = document.createElementNS("http://www.w3.org/2000/svg", "use");
+  const infobox = document.createElementNS("http://www.w3.org/2000/svg", "use");
 
-  svgContainer.appendChild(newUseElement);
+  timeleline.href.baseVal = "#timeline"
+  infobox.href.baseVal = "#infoBox"
+
+  svgContainer.appendChild(timeleline);
+  svgContainer.appendChild(infobox);
 }

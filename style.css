@@ -1,0 +1,8 @@
+.svgInfoBoxContainer,
+.svgTimelineContainer {
+  display: none;
+}
+
+.container svg {
+  display: block;
+}
