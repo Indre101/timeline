@@ -6,7 +6,7 @@
 	.st1{fill:none;stroke:#000000;stroke-width:5;stroke-miterlimit:10;}
 	.timelinecircle{fill:#DFF3FF;}
 	</style>
-	<line class="st0" x1="391" y1="712" x2="445" y2="507"/>
+	<line class="st0 line" x1="391" y1="712" x2="445" y2="507"/>
 	<path class="st1" d="M57.5 933.5c0 0 564.6-464.1 898-353 135 45 176 86 336 243 193.3 189.7 287 83 346 23 60-61 109-114 155-140s111-27 111-27"/>
 	<circle class="timelinecircle"cx="174.1" cy="846.8" r="26.6"/>
 	<circle class="timelinecircle"cx="391.1" cy="711.8" r="26.6"/>

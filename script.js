@@ -19,21 +19,27 @@ async function getTheSVG() {
   const responseInfobox = await fetch("./final_infobox.svg");
   const svgInfobox = await responseInfobox.text();
   svgInfoBoxContainer.innerHTML = svgInfobox;
+
+
 }
 
 function appendSVG(timeleline) {
   const infobox = document.createElementNS("http://www.w3.org/2000/svg", "use");
+  infobox.setAttribute("width", "518");
+  infobox.setAttribute("height", "251");
+
   infobox.href.baseVal = "#infobox";
   timeleline.appendChild(infobox);
 }
 
+
+
+
 function test() {
   document.querySelectorAll(".bullet").forEach(element => {
     element.onclick = function () {
-      document.querySelector("#infobox").style.visibility = "visible";
-      console.log(this.dataset.part);
+      setNewCoordinates(element)
       showModal(this.dataset.part);
-
     };
   });
 
@@ -41,12 +47,40 @@ function test() {
   appendSVG(timeline);
 }
 
+
+
+function setNewCoordinates(element) {
+  const values = {}
+  values.newX = Math.floor(element.getAttribute("cx"));
+  values.newY = Math.floor(element.getAttribute("cy"));
+  values.newX2 = values.newX + 54;
+  values.newY2 = values.newY - 205;
+
+  setLineCoordinates(values);
+}
+
+
+function setLineCoordinates(values) {
+  document.querySelector(".line").setAttribute("x1", values.newX)
+  document.querySelector(".line").setAttribute("y1", values.newY)
+  document.querySelector(".line").setAttribute("x2", values.newX2)
+  document.querySelector(".line").setAttribute("y2", values.newY2)
+  setModalCoordinates(values)
+}
+
+function setModalCoordinates(values) {
+  document.querySelector("use").style.display = "block";
+  document.querySelector("use").setAttribute("x", values.newX2)
+  document.querySelector("use").setAttribute("y", values.newY2 - 220)
+
+}
+
+
 let moviePart = [];
 
 function showModal(datasetValue) {
   console.log(document.querySelectorAll("use"));
   const elementUse = document.querySelectorAll("use")
-  console.log(elementUse);
   getFilmInformation(datasetValue, elementUse)
 }
 
