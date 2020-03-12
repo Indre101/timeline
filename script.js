@@ -6,6 +6,7 @@ window.addEventListener("DOMContentLoaded", init);
 
 function init() {
   getTheSVG();
+
 }
 
 async function getTheSVG() {
@@ -13,13 +14,17 @@ async function getTheSVG() {
   const responseTimeline = await fetch("./timeline.svg");
   const svgTimeline = await responseTimeline.text();
   svgTimelineContainer.innerHTML = svgTimeline;
-  test();
+
+
+
+  showModalBox();
 
   // Append info box to a div
   const responseInfobox = await fetch("./final_infobox.svg");
   const svgInfobox = await responseInfobox.text();
   svgInfoBoxContainer.innerHTML = svgInfobox;
-
+  const bullet = document.querySelector("[data-part=two")
+  setNewCoordinates(bullet)
 
 }
 
@@ -27,7 +32,6 @@ function appendSVG(timeleline) {
   const infobox = document.createElementNS("http://www.w3.org/2000/svg", "use");
   infobox.setAttribute("width", "518");
   infobox.setAttribute("height", "251");
-
   infobox.href.baseVal = "#infobox";
   timeleline.appendChild(infobox);
 }
@@ -35,11 +39,10 @@ function appendSVG(timeleline) {
 
 
 
-function test() {
+function showModalBox() {
   document.querySelectorAll(".bullet").forEach(element => {
     element.onclick = function () {
       setNewCoordinates(element)
-      showModal(this.dataset.part);
     };
   });
 
@@ -55,7 +58,7 @@ function setNewCoordinates(element) {
   values.newY = Math.floor(element.getAttribute("cy"));
   values.newX2 = values.newX + 54;
   values.newY2 = values.newY - 205;
-
+  showModal(element.dataset.part);
   setLineCoordinates(values);
 }
 
@@ -79,9 +82,8 @@ function setModalCoordinates(values) {
 let moviePart = [];
 
 function showModal(datasetValue) {
-  console.log(document.querySelectorAll("use"));
-  const elementUse = document.querySelectorAll("use")
-  getFilmInformation(datasetValue, elementUse)
+  const modalBox = document.querySelectorAll("use")
+  getFilmInformation(datasetValue, modalBox)
 }
 
 
@@ -103,7 +105,6 @@ async function getFilmInformation(datasetValue, box) {
 
 
 function prepareData(response, datasetValue, box) {
-  // const filmInformation = getFilmInformation();
   const rightMoviePart = response.filter(movie => movie.part === datasetValue);
   console.log(rightMoviePart[0]);
   showCorrectModalInfo(rightMoviePart[0]);
