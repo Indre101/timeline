@@ -14,7 +14,7 @@ async function getTheSVG() {
   const svgTimeline = await responseTimeline.text();
   svgTimelineContainer.innerHTML = svgTimeline;
   // Append info box to a div
-  const responseInfobox = await fetch("./infobox.svg");
+  const responseInfobox = await fetch("./final_infobox.svg");
   const svgInfobox = await responseInfobox.text();
   svgInfoBoxContainer.innerHTML = svgInfobox;
   test();
@@ -53,11 +53,12 @@ function showModal(datasetValue) {
 
 function showCorrectModalInfo(box, movie) {
   box.querySelector(".movieName").textContent = movie.title.original;
-  box.querySelector(".danishMoviename").textContent = movie.title.original;
+  box.querySelector(".danishMoviename").textContent = movie.title.danish;
   box.querySelector(".releaseYear").textContent = movie.year;
   box.querySelector(".duration").textContent = movie.length;
   box.querySelector(".director").textContent = movie.director;
   box.querySelector(".screenPlay").textContent = movie.title.writers.screenplay;
+  box.querySelector(".poster").src = movie.title.writers.screenplay;
 }
 
 async function getFilmInformation(datasetValue, box) {
