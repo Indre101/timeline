@@ -13,25 +13,27 @@ async function getTheSVG() {
   const responseTimeline = await fetch("./timeline.svg");
   const svgTimeline = await responseTimeline.text();
   svgTimelineContainer.innerHTML = svgTimeline;
+  test();
+
   // Append info box to a div
   const responseInfobox = await fetch("./final_infobox.svg");
   const svgInfobox = await responseInfobox.text();
   svgInfoBoxContainer.innerHTML = svgInfobox;
-  test();
 }
 
 function appendSVG(timeleline) {
   const infobox = document.createElementNS("http://www.w3.org/2000/svg", "use");
-  infobox.href.baseVal = "#infoBox";
+  infobox.href.baseVal = "#infobox";
   timeleline.appendChild(infobox);
 }
 
 function test() {
   document.querySelectorAll(".bullet").forEach(element => {
     element.onclick = function () {
+      document.querySelector("#infobox").style.visibility = "visible";
       console.log(this.dataset.part);
-
       showModal(this.dataset.part);
+
     };
   });
 
@@ -42,23 +44,21 @@ function test() {
 let moviePart = [];
 
 function showModal(datasetValue) {
-
-  document.querySelectorAll(".infoBox").forEach(box => {
-    box.setAttribute("viewBox", "0 0 2500 1000");
-    box.style.visibility = "visible";
-    getFilmInformation(datasetValue, box)
-  });
+  console.log(document.querySelectorAll("use"));
+  const elementUse = document.querySelectorAll("use")
+  console.log(elementUse);
+  getFilmInformation(datasetValue, elementUse)
 }
 
 
-function showCorrectModalInfo(box, movie) {
-  box.querySelector(".movieName").textContent = movie.title.original;
-  box.querySelector(".danishMoviename").textContent = movie.title.danish;
-  box.querySelector(".releaseYear").textContent = movie.year;
-  box.querySelector(".duration").textContent = movie.length;
-  box.querySelector(".director").textContent = movie.director;
-  box.querySelector(".screenPlay").textContent = movie.title.writers.screenplay;
-  box.querySelector(".poster").src = movie.title.writers.screenplay;
+function showCorrectModalInfo(movie) {
+  document.querySelector(".movieName").textContent = movie.title.original;
+  document.querySelector(".danishMoviename").textContent = movie.title.danish;
+  document.querySelector(".releaseYear").textContent = movie.year;
+  document.querySelector(".duration").textContent = movie.length;
+  document.querySelector(".director").textContent = movie.director;
+  document.querySelector(".screenPlay").textContent = movie.writers.screenplay;
+  document.querySelector(".poster").src = `./images/${movie.poster}`;
 }
 
 async function getFilmInformation(datasetValue, box) {
@@ -72,12 +72,6 @@ function prepareData(response, datasetValue, box) {
   // const filmInformation = getFilmInformation();
   const rightMoviePart = response.filter(movie => movie.part === datasetValue);
   console.log(rightMoviePart[0]);
-  showCorrectModalInfo(box, rightMoviePart[0]);
+  showCorrectModalInfo(rightMoviePart[0]);
 
-  // title: {original: "Harry Potter and the Sorcerer's Stone", danish: "Harry Potter og de vises sten"}
-  // year: 2001
-  // length: "2h 32min"
-  // director: "Chris Columbus"
-  // writers: {novel: "J.K. Rowling", screenplay: "Steve Kloves"}
-  // poster: "sorcerer.jpg"
 }

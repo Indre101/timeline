@@ -3,16 +3,17 @@
   margin: 0;
 }
 
-.svgInfoBoxContainer,
-.svgTimelineContainer {
+.svgInfoBoxContainer {
+  display: none;
 }
 
 .container svg {
   display: block;
 }
 
-#infoBox {
-  visibility: hidden;
+#infoBox,
+use {
+  display: none;
 }
 
 circle.timelinecircle {
