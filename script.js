@@ -20,20 +20,10 @@ async function getTheSVG() {
   test();
 }
 
-function appendSVG() {
-  // Append info box inside the timeline
+function appendSVG(timeleline) {
   const infobox = document.createElementNS("http://www.w3.org/2000/svg", "use");
   infobox.href.baseVal = "#infoBox";
-
-  // Append timeleline into the svg container
-  const timeleline = document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "use"
-  );
-  timeleline.href.baseVal = "#timeline";
-
-  svgContainer.appendChild(infobox);
-  svgContainer.appendChild(timeleline);
+  timeleline.appendChild(infobox);
 }
 
 function test() {
@@ -45,7 +35,8 @@ function test() {
     };
   });
 
-  appendSVG();
+  const timeline = document.querySelector("#timeline");
+  appendSVG(timeline);
 }
 
 let moviePart = [];
@@ -62,6 +53,11 @@ function showModal(datasetValue) {
 
 function showCorrectModalInfo(box, movie) {
   box.querySelector(".movieName").textContent = movie.title.original;
+  box.querySelector(".danishMoviename").textContent = movie.title.original;
+  box.querySelector(".releaseYear").textContent = movie.year;
+  box.querySelector(".duration").textContent = movie.length;
+  box.querySelector(".director").textContent = movie.director;
+  box.querySelector(".screenPlay").textContent = movie.title.writers.screenplay;
 }
 
 async function getFilmInformation(datasetValue, box) {
