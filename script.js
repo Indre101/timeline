@@ -17,12 +17,13 @@ async function getTheSVG() {
 
 
 
-  showModalBox();
 
   // Append info box to a div
   const responseInfobox = await fetch("./final_infobox.svg");
   const svgInfobox = await responseInfobox.text();
   svgInfoBoxContainer.innerHTML = svgInfobox;
+  showModalBox();
+
   const bullet = document.querySelector("[data-part=two")
   setNewCoordinates(bullet)
 
@@ -94,7 +95,8 @@ function showCorrectModalInfo(movie) {
   document.querySelector(".duration").textContent = movie.length;
   document.querySelector(".director").textContent = movie.director;
   document.querySelector(".screenPlay").textContent = movie.writers.screenplay;
-  document.querySelector(".poster").src = `./images/${movie.poster}`;
+  console.log(movie.poster);
+  document.querySelector(".poster").setAttribute("href", `./images/${movie.poster}`);
 }
 
 async function getFilmInformation(datasetValue, box) {
