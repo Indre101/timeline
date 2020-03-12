@@ -95,7 +95,6 @@ function showCorrectModalInfo(movie) {
   document.querySelector(".duration").textContent = movie.length;
   document.querySelector(".director").textContent = movie.director;
   document.querySelector(".screenPlay").textContent = movie.writers.screenplay;
-  console.log(movie.poster);
   document.querySelector(".poster").setAttribute("href", `./images/${movie.poster}`);
 }
 
@@ -108,7 +107,6 @@ async function getFilmInformation(datasetValue, box) {
 
 function prepareData(response, datasetValue, box) {
   const rightMoviePart = response.filter(movie => movie.part === datasetValue);
-  console.log(rightMoviePart[0]);
   showCorrectModalInfo(rightMoviePart[0]);
 
 }
